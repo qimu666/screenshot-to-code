@@ -148,6 +148,7 @@ async def stream_code(websocket: WebSocket):
 
     # Get the OpenAI Base URL from the request. Fall back to environment variable if not provided.
     openai_base_url: Union[str, None] = None
+    print(openai_base_url)
     # Disable user-specified OpenAI Base URL in prod
     if not os.environ.get("IS_PROD"):
         if "openAiBaseURL" in params and params["openAiBaseURL"]:
@@ -160,6 +161,7 @@ async def stream_code(websocket: WebSocket):
 
     if not openai_base_url:
         print("Using official OpenAI URL")
+
 
     # Get the image generation flag from the request. Fall back to True if not provided.
     should_generate_images = (

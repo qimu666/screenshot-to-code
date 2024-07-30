@@ -1,8 +1,9 @@
 import asyncio
 import re
 from typing import Dict, List, Union
-from openai import AsyncOpenAI
+
 from bs4 import BeautifulSoup
+from openai import AsyncOpenAI
 
 
 async def process_tasks(prompts: List[str], api_key: str, base_url: str | None):
@@ -21,7 +22,7 @@ async def process_tasks(prompts: List[str], api_key: str, base_url: str | None):
 
 
 async def generate_image(
-    prompt: str, api_key: str, base_url: str | None
+        prompt: str, api_key: str, base_url: str | None
 ) -> Union[str, None]:
     client = AsyncOpenAI(api_key=api_key, base_url=base_url)
     res = await client.images.generate(
@@ -63,7 +64,7 @@ def create_alt_url_mapping(code: str) -> Dict[str, str]:
 
 
 async def generate_images(
-    code: str, api_key: str, base_url: Union[str, None], image_cache: Dict[str, str]
+        code: str, api_key: str, base_url: Union[str, None], image_cache: Dict[str, str]
 ) -> str:
     # Find all images
     soup = BeautifulSoup(code, "html.parser")
@@ -75,8 +76,8 @@ async def generate_images(
         # Only include URL if the image starts with https://placehold.co
         # and it's not already in the image_cache
         if (
-            img["src"].startswith("https://placehold.co")
-            and image_cache.get(img.get("alt")) is None
+                img["src"].startswith("https://placehold.co")
+                and image_cache.get(img.get("alt")) is None
         ):
             alts.append(img.get("alt", None))
 
